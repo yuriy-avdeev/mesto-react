@@ -5,9 +5,9 @@ import Card from './Card'
 
 function Main(props) {
 
-    const [userName, setUserName] = React.useState();
-    const [userDescription, setUserDescription] = React.useState();
-    const [userAvatar, setUserAvatar] = React.useState();
+    const [userName, setUserName] = React.useState('');
+    const [userDescription, setUserDescription] = React.useState('');
+    const [userAvatar, setUserAvatar] = React.useState('');
     const [cards, setCards] = React.useState([]);
 
     React.useEffect(() => {
@@ -73,7 +73,8 @@ function Main(props) {
                     cards.map((card, i) => (
                         <Card
                             key = {card._id}
-                            onCardClick={props.onCardClick}
+                            onCardClick={props.onCardClick} // клик фото => в app.js обработчик 
+                            // меняет значение карточки на true => popup_active c карточкой
                             card = {card}
                         />
                     ))
