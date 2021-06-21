@@ -22,7 +22,7 @@ function Main(props) {
     React.useEffect(() => {
         api.getCards()
             .then(dataCardList => {
-                dataCardList = dataCardList.slice(0, 3);
+                dataCardList = dataCardList.slice(0, 9);
                 setCards(dataCardList);
             })
     }, []);
