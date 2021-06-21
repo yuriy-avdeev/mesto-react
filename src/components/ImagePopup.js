@@ -7,7 +7,7 @@ function ImagePopup({ card, onClose }) {
     }
 
     React.useEffect(() => {
-        const handleEsc = (evt) => {
+        function handleEsc (evt) {
             evt.key === 'Escape' && onClose(evt)
         }
 

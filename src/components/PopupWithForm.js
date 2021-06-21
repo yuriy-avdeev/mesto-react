@@ -1,16 +1,16 @@
 import React from 'react';
 
-function PopupWithForm({ title, name, isOpen, onClose, input }) {
+function PopupWithForm({ title, name, isOpen, onClose, children }) {
 
     const handleFieldClick = (evt) => {
         evt.target === evt.currentTarget && onClose(evt)
-    }
+        // console.log(children)
+}
 
     React.useEffect(() => {
         const handleEsc = (evt) => {
             evt.key === 'Escape' && onClose(evt)
         }
-
         if (isOpen) {
             document.addEventListener('keyup', handleEsc);
         }
@@ -25,7 +25,7 @@ function PopupWithForm({ title, name, isOpen, onClose, input }) {
             <div className="popup__container">
                 <h2 className="popup__title">{title}</h2>
                 <form className="popup__form" name={`popup-form_type_${name}`} onSubmit={onClose} noValidate>
-                    {input}
+                    {children}
                     <button className="popup__submit" type="submit">Сохранить</button>
                 </form>
                 <button className="popup__close" type="button" aria-label="закрыть форму" onClick={onClose}>

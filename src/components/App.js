@@ -34,70 +34,6 @@ function App() {
     const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
     const [selectedCard, setSelectedCard] = React.useState();
 
-    // константы с инпутами (под 3 разных формы) для их передачи через пропс input в компонет PopupWithForm 
-    const inputEditAvatar =
-        <>
-            <input
-                id="url-avatar-input"
-                name="link"
-                type="url"
-                className="popup__input popup__input_new-avatar"
-                placeholder="Ссылка на изображение"
-                required
-            />
-            <span className="url-avatar-input-error popup__input-error"></span>
-        </>
-
-    const inputAddPlace =
-        <>
-            <input
-                id="place-input"
-                name="name"
-                type="text"
-                className="popup__input popup__input_type_place"
-                placeholder="Название"
-                minLength="2"
-                maxLength="30"
-                required
-            />
-            <span className="place-input-error popup__input-error"></span>
-            <input
-                id="url-input"
-                name="link"
-                type="url"
-                className="popup__input popup__input_type_url"
-                placeholder="Ссылка на картинку"
-                required
-            />
-            <span className="url-input-error popup__input-error"></span>
-        </>
-
-    const inputEditProfile =
-        <>
-            <input
-                id="username-input"
-                name="name"
-                type="text"
-                className="popup__input popup__input_type_name"
-                placeholder="Имя пользователя"
-                minLength="2"
-                maxLength="40"
-                required
-            />
-            <span className="username-input-error popup__input-error"></span>
-            <input
-                id="useractivity-input"
-                name="activity"
-                type="text"
-                className="popup__input popup__input_type_activity"
-                placeholder="Профессия"
-                minLength="2"
-                maxLength="200"
-                required
-            />
-            <span className="useractivity-input-error popup__input-error"></span>
-        </>
-
     return (
         <div className="page">
             <Header />
@@ -107,27 +43,83 @@ function App() {
                 onEditProfile={handleEditProfileClick}
                 onCardClick={handleCardClick}
             />
+
+
             <PopupWithForm
                 title='Обновить аватар'
                 name='editAvatar'
                 isOpen={isEditAvatarPopupOpen}
                 onClose={closeAllPopups}
-                input={inputEditAvatar}
-            />
+            >
+                <input
+                    id="url-avatar-input"
+                    name="link"
+                    type="url"
+                    className="popup__input popup__input_new-avatar"
+                    placeholder="Ссылка на изображение"
+                    required
+                />
+                <span className="url-avatar-input-error popup__input-error"></span>
+            </PopupWithForm>
+
+
             <PopupWithForm
                 title='Новое место'
                 name='addPlace'
                 isOpen={isAddPlacePopupOpen}
                 onClose={closeAllPopups}
-                input={inputAddPlace}
-            />
+            >
+                <input
+                    id="place-input"
+                    name="name"
+                    type="text"
+                    className="popup__input popup__input_type_place"
+                    placeholder="Название"
+                    minLength="2"
+                    maxLength="30"
+                    required
+                />
+                <span className="place-input-error popup__input-error"></span>
+                <input
+                    id="url-input"
+                    name="link"
+                    type="url"
+                    className="popup__input popup__input_type_url"
+                    placeholder="Ссылка на картинку"
+                    required
+                />
+                <span className="url-input-error popup__input-error"></span>
+            </PopupWithForm>
+
             <PopupWithForm
                 title='Редактировать профиль'
                 name='editProfile'
                 isOpen={isEditProfilePopupOpen}
                 onClose={closeAllPopups}
-                input={inputEditProfile}
-            />
+            >
+                <input
+                    id="username-input"
+                    name="name"
+                    type="text"
+                    className="popup__input popup__input_type_name"
+                    placeholder="Имя пользователя"
+                    minLength="2"
+                    maxLength="40"
+                    required
+                />
+                <span className="username-input-error popup__input-error"></span>
+                <input
+                    id="useractivity-input"
+                    name="activity"
+                    type="text"
+                    className="popup__input popup__input_type_activity"
+                    placeholder="Профессия"
+                    minLength="2"
+                    maxLength="200"
+                    required
+                />
+                <span className="useractivity-input-error popup__input-error"></span>
+            </PopupWithForm>
 
             <ImagePopup
                 card={selectedCard}
