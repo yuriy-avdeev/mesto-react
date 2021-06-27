@@ -1,4 +1,4 @@
-.photo-place__like {
+.card__like {
     width: 22px;
     height: 19px;
     background-image: url(../../../images/like-disabled.svg);
@@ -13,6 +13,6 @@
     cursor: pointer;
 }
 
-.photo-place__like:hover {
+.card__like:hover {
     opacity: 0.5;
 }

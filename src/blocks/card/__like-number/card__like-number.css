@@ -1,8 +1,7 @@
-.photo-place__like-number {
+.card__like-number {
     font-weight: 400;
     font-size: 13px;
     line-height: 1.2;
-
     color: #000000;
     width: 12px;
     max-width: fit-content;

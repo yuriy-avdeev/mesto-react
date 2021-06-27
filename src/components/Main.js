@@ -1,31 +1,11 @@
 import React from 'react';
+import { CurrentUser } from '../contexts/CurrentUserContext';
 import editPen from '../images/edit-pen.svg'
-import api from '../utils/api'
 import Card from './Card'
 
 function Main(props) {
 
-    const [userName, setUserName] = React.useState('');
-    const [userDescription, setUserDescription] = React.useState('');
-    const [userAvatar, setUserAvatar] = React.useState('');
-    const [cards, setCards] = React.useState([]);
-
-    React.useEffect(() => {
-        api.getUser()
-            .then(res => {
-                setUserName(res.name);
-                setUserDescription(res.about);
-                setUserAvatar(res.avatar);
-            })
-    }, []);
-
-    React.useEffect(() => {
-        api.getCards()
-            .then(dataCardList => {
-                dataCardList = dataCardList.slice(0, 9);
-                setCards(dataCardList);
-            })
-    }, []);
+    const currentUser = React.useContext(CurrentUser);
 
     return (
         <main className="page">
@@ -33,12 +13,10 @@ function Main(props) {
                 <div className="profile__avatar-container">
                     <div
                         className="profile__photo"
-                        // src={userAvatar}
                         style={{
-                            backgroundImage: `url(${userAvatar})`,
+                            backgroundImage: `url(${currentUser && currentUser.avatar})`,
                             backgroundSize: 'cover'
                         }}
-                        // alt="изображение владельца профиля"
                     >
                     </div>
                     <img
@@ -50,8 +28,8 @@ function Main(props) {
                 </div>
                 <div className="profile__information">
                     <div className="profile__person">
-                        <h1 className="profile__name">{userName}</h1>
-                        <p className="profile__activity">{userDescription}</p>
+                        <h1 className="profile__name">{currentUser && currentUser.name}</h1>
+                        <p className="profile__activity">{currentUser && currentUser.about}</p>
                     </div>
                     <button
                         className="profile__editor-popup profile__click"
@@ -70,12 +48,13 @@ function Main(props) {
 
             <section className="places">
                 {
-                    cards.map((card, i) => (
+                    props.cards.map((card, i) => (
                         <Card
-                            key = {card._id}
-                            onCardClick={props.onCardClick} // клик фото => в app.js обработчик 
-                            // меняет значение карточки на true => popup_active c карточкой
-                            card = {card}
+                            key={card._id}
+                            onCardClick={props.onCardClick}
+                            card={card}
+                            onCardLike={props.onCardLike}
+                            onCardDelete={props.onCardDelete}
                         />
                     ))
                 }

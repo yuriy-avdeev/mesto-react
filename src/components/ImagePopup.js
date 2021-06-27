@@ -1,14 +1,14 @@
 import React from 'react';
 
 function ImagePopup({ card, onClose }) {
-    
+
     const handleFieldClick = (evt) => {
-        evt.target === evt.currentTarget && onClose(evt)
+        evt.target === evt.currentTarget && onClose()
     }
 
     React.useEffect(() => {
-        function handleEsc (evt) {
-            evt.key === 'Escape' && onClose(evt)
+        const handleEsc = (evt) => {
+            evt.key === 'Escape' && onClose()
         }
 
         if (card) {

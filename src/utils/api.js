@@ -1,4 +1,4 @@
-import {token, urlFetch} from './utils.js';
+import { token, urlFetch } from './utils.js';
 
 class Api {
     constructor({ url, headers }) {
@@ -8,39 +8,36 @@ class Api {
 
     _checkResponse(res) {
         return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status} - ${res.statusText}`)
-        // после запроса (fetch) получили спец. объект ответа (res) и если промис выполнен успешно (res.ok ?), то >
-        // выполним метод объекта ответа (res.json()), чтобы получить данные,  - возвр-т промис => 
-        // далее (тут в index.js) снова вызываем .then и обрабатываем в колбеке
-
     }
 
-    async getUser() {
+    async getUserInfo() {
         const res = await fetch(`${this._url}/users/me`, {
             headers: this._headers
         });
         return this._checkResponse(res);
     }
 
-    async likeCard(id) {
-        const res = await fetch(`${this._url}/cards/likes/${id}`, {
-            method: 'PUT',
-            headers: this._headers
-        });
-        return this._checkResponse(res);
+    async changeLikeCardStatus(id, isLikedCard) {
+        if (!isLikedCard) {
+            const res = await fetch(`${this._url}/cards/likes/${id}`, {
+                method: 'PUT',
+                headers: this._headers
+            });
+            return this._checkResponse(res);
+        } else {
+            const res = await fetch(`${this._url}/cards/likes/${id}`, {
+                method: 'DELETE',
+                headers: this._headers
+            });
+            return this._checkResponse(res);
+        }
     }
-
-        // код останавливает выполн-е на ключ. слове await (до выполн. обещания) и продолжает 
-        // выполнение далее - async/await позволяет писать асинхронный код синхронно, не блокируя стек вызовов. 
-        // мы замораживаем код и ждем пока выполнится промис, а затем продолжаем. 
-        // асинхронн. функция позволяет “вытащить” значение завершенного промиса без метода (then).
-
-/////////////////////////////////// дальше - через then
 
     getCards() {
         return fetch(`${this._url}/cards`, {
             headers: this._headers
         })
-        .then(this._checkResponse)
+            .then(this._checkResponse)
     }
 
     deleteCard(id) {
@@ -48,27 +45,19 @@ class Api {
             method: 'DELETE',
             headers: this._headers
         })
-        .then(this._checkResponse)
+            .then(this._checkResponse)
     }
 
-    likeCardCancel(id) {
-        return fetch(`${this._url}/cards/likes/${id}`, {
-            method: 'DELETE',
-            headers: this._headers
-        })
-        .then(this._checkResponse)
-    }
-
-    saveUserInfo({ name, activity }) {
+    setUserInfo({ name, about }) {
         return fetch(`${this._url}/users/me`, {
             method: 'PATCH',
             headers: this._headers,
             body: JSON.stringify({
                 name: name,
-                about: activity
+                about: about
             })
         })
-        .then(this._checkResponse)
+            .then(this._checkResponse)
     }
 
     saveNewCard({ name, url }) {
@@ -80,10 +69,10 @@ class Api {
                 link: url
             })
         })
-        .then(this._checkResponse)
+            .then(this._checkResponse)
     }
 
-    newAvatar(url) {
+    setNewAvatar(url) {
         return fetch(`${this._url}/users/me/avatar`, {
             method: 'PATCH',
             headers: this._headers,
@@ -95,13 +84,12 @@ class Api {
     }
 }
 
-const api = new Api({
+const api = new Api({         // <=  тут же создал экзмепляр, ниже его экспортировал
     url: urlFetch,
     headers: {
-        authorization: token, 
+        authorization: token,
         'Content-Type': 'application/json'
     }
 });
-
 
 export default api;
