@@ -24,7 +24,7 @@ function App() {
     React.useEffect(() => {
         api.getCards()
             .then(dataCardList => {
-                dataCardList = dataCardList.slice(0, 6);  // <= 3 / 9
+                // dataCardList = dataCardList.slice(0, 6);  // <=
                 setCards(dataCardList);
             })
     }, []);
