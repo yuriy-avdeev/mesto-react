@@ -19,21 +19,23 @@ function App() {
             .then(userData => {
                 setCurrentUser(userData);
             })
+            .catch(err =>console.log(err))
     }, []);
 
     React.useEffect(() => {
         api.getCards()
             .then(dataCardList => {
-                // dataCardList = dataCardList.slice(0, 6);  // <=
+                dataCardList = dataCardList.slice(0, 6);  // <=
                 setCards(dataCardList);
             })
+            .catch(err =>console.log(err))
     }, []);
 
     const closeAllPopups = () => {
         setIsEditAvatarPopupOpen(false);
         setIsAddPlacePopupOpen(false);
         setIsEditProfilePopupOpen(false);
-        setSelectedCard(null);
+        setSelectedCard();
     }
 
     const handleCardLike = (clickedCard) => {
@@ -42,16 +44,19 @@ function App() {
             .then((returnedCard) => {
                 setCards(
                     cards.map(card =>
-                        card._id === returnedCard._id ? returnedCard : card)
+                        card._id === returnedCard._id ? returnedCard : card
+                    )
                 );
-            });
+            })
+            .catch(err =>console.log(err))
     }
 
     const handleCardDelete = (clickedCard) => {
         api.deleteCard(clickedCard._id)
             .then(() => {
                 setCards(cards.filter(card => card._id !== clickedCard._id));
-            });
+            })
+            .catch(err =>console.log(err))
     }
 
     // обновление данных польз-ля
@@ -65,7 +70,9 @@ function App() {
         api.setUserInfo(enteredUserData)
             .then(userData => {
                 setCurrentUser(userData);
-            });
+                closeAllPopups();
+            })
+            .catch(err =>console.log(err))
     }
 
     // добавление новой карточки 
@@ -79,7 +86,9 @@ function App() {
         api.saveNewCard(cardData)
             .then((newCard) => {
                 setCards([newCard, ...cards]);
+                closeAllPopups();
             })
+            .catch(err =>console.log(err))
     }
 
     // изменение аватарки
@@ -93,7 +102,9 @@ function App() {
         api.setNewAvatar(enteredUrl)
             .then(userData => {
                 setCurrentUser(userData);
-            });
+                closeAllPopups();
+            })
+            .catch(err =>console.log(err))
     }
 
     // увеличенная фотография

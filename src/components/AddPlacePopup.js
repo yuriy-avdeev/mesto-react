@@ -17,8 +17,7 @@ function AddPlacePopup(props) {
     const handleSubmit = (evt) => {
         evt.preventDefault();
         props.onAddPlace({ name, url });
-        props.onClose();
-        evt.target.reset();
+        // evt.target.reset(); // <= только с useRef
         setName('')
         setUrl('')
     }
@@ -30,6 +29,7 @@ function AddPlacePopup(props) {
             isOpen={props.isOpen}
             onClose={props.onClose}
             onSubmit={handleSubmit}
+            buttonText='Создать'
         >
             <input
                 id="place-input"
@@ -37,6 +37,7 @@ function AddPlacePopup(props) {
                 type="text"
                 className="popup__input popup__input_type_place"
                 placeholder="Название"
+                value={name}
                 minLength="2"
                 maxLength="30"
                 onChange={handleNameInput}
@@ -49,6 +50,7 @@ function AddPlacePopup(props) {
                 type="url"
                 className="popup__input popup__input_type_url"
                 placeholder="Ссылка на картинку"
+                value={url}
                 onChange={handleUrlInput}
                 required
             />

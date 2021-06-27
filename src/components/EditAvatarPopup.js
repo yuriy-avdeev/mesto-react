@@ -8,7 +8,6 @@ function EditAvatarPopup(props) {
     const handleSubmit = (evt) => {
         evt.preventDefault();
         newAvatarRef.current.value && props.onUpdateAvatar(newAvatarRef.current.value);
-        props.onClose();
         evt.target.reset();
     }
 
@@ -19,6 +18,7 @@ function EditAvatarPopup(props) {
             isOpen={props.isOpen}
             onClose={props.onClose}
             onSubmit={handleSubmit}
+            buttonText='Сохранить'
         >
             <input
                 id="url-avatar-input"

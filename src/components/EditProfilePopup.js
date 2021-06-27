@@ -14,7 +14,7 @@ function EditProfilePopup(props) {
         setName(currentUser.name);
         setDescription(currentUser.about);
         }
-    }, [currentUser]);
+    }, [currentUser, props.isOpen]);
 
     const handleNameInput = (evt) => {
         setName(evt.target.value);
@@ -27,8 +27,6 @@ function EditProfilePopup(props) {
     const handleSubmit = (evt) => {
         evt.preventDefault();
         props.onUpdateUser({ name, about: description });
-        props.onClose();
-        evt.target.reset();
     }
 
     return (
@@ -38,6 +36,7 @@ function EditProfilePopup(props) {
             isOpen={props.isOpen}
             onClose={props.onClose}
             onSubmit={handleSubmit}
+            buttonText='Сохранить'
         >
             <input
                 id="username-input"
