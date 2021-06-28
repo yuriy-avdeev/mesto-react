@@ -8,7 +8,7 @@ function Main(props) {
     const currentUser = React.useContext(CurrentUser);
 
     return (
-        <main className="page">
+        <main>
             <section className="profile">
                 <div className="profile__avatar-container">
                     <div

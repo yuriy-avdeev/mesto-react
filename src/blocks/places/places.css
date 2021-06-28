@@ -1,9 +1,7 @@
 .places {
-    width: 100%;
-    max-width: 880px;
+    max-width: 100%;
     display: grid;
     grid-template-columns: repeat(auto-fit, 282px);
     gap: 20px 17px;
     justify-content: center;
-    margin: auto;
 }
