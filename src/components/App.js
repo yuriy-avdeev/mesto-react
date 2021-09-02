@@ -25,7 +25,7 @@ function App() {
     React.useEffect(() => {
         api.getCards()
             .then(dataCardList => {
-                // dataCardList = dataCardList.slice(0, 6);  // <=
+                dataCardList = dataCardList.slice(0, 6);  // <=
                 setCards(dataCardList);
             })
             .catch(err =>console.log(err))
